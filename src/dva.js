@@ -1,11 +1,15 @@
 import {create} from 'dva-core';
+import {connect} from '@tarojs/redux';
 import {createLogger} from 'redux-logger';
 import createLoading from 'dva-loading';
+
+
+
 let app;
 let store;
 let dispatch;
 
-function createApp(opt) {
+export default function createApp(opt) {
   opt.onAction = [createLogger()];
   app = create(opt);
   app.use(createLoading({}));
@@ -18,14 +22,20 @@ function createApp(opt) {
   app.getStore = () => store;
 
   dispatch = store.dispatch;
-
-  app.dispatch = dispatch;
+  app.dispatch = store.dispatch;
   return app;
 }
 
-export default {
-  createApp,
-  getDispatch() {
-    return app.dispatch;
-  }
+export {connect}
+
+export function getApp() {
+  return app;
+}
+
+export function getStore() {
+  return store;
+}
+
+export function getDispatch() {
+  return app.dispatch;
 }

@@ -2,7 +2,7 @@ import '@tarojs/async-await'
 import action from './utils/action'
 import Taro, {Component} from '@tarojs/taro'
 import Index from './pages/index'
-import dva from './dva'
+import createApp, {connect, getDispatch} from './dva'
 import models from './model'
 import {Provider} from '@tarojs/redux'
 
@@ -10,7 +10,7 @@ import {Provider} from '@tarojs/redux'
 import './app.scss'
 
 
-const dvaApp = dva.createApp({
+const dvaApp = createApp({
   initialState: {},
   models: models,
   onError(e, dispatch) {
@@ -83,4 +83,4 @@ class App extends Component {
   }
 }
 
-Taro.render(dvaApp.start(<App/>), document.getElementById('app'))
+Taro.render(<App/>, document.getElementById('app'));
