@@ -1,41 +1,39 @@
-import {create} from 'dva-core';
-import {connect} from '@tarojs/redux';
-import {createLogger} from 'redux-logger';
-import createLoading from 'dva-loading';
+import { connect } from '@tarojs/redux'
+import { create } from 'dva-core'
+import createLoading from 'dva-loading'
+import { createLogger } from 'redux-logger'
 
+let app
+let store
+let dispatch
 
+export default function createApp (opt) {
+  opt.onAction = [createLogger()]
+  app = create(opt)
+  app.use(createLoading({}))
 
-let app;
-let store;
-let dispatch;
+  if (!global.registered) opt.models.forEach(model => app.model(model))
+  global.registered = true
+  app.start()
 
-export default function createApp(opt) {
-  opt.onAction = [createLogger()];
-  app = create(opt);
-  app.use(createLoading({}));
+  store = app._store
+  app.getStore = () => store
 
-  if (!global.registered) opt.models.forEach(model => app.model(model));
-  global.registered = true;
-  app.start();
-
-  store = app._store;
-  app.getStore = () => store;
-
-  dispatch = store.dispatch;
-  app.dispatch = store.dispatch;
-  return app;
+  dispatch = store.dispatch
+  app.dispatch = store.dispatch
+  return app
 }
 
-export {connect}
+export { connect }
 
-export function getApp() {
-  return app;
+export function getApp () {
+  return app
 }
 
-export function getStore() {
-  return store;
+export function getStore () {
+  return store
 }
 
-export function getDispatch() {
-  return app.dispatch;
+export function getDispatch () {
+  return app.dispatch
 }

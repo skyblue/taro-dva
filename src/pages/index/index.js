@@ -1,47 +1,42 @@
-import Taro, {Component} from '@tarojs/taro'
-import {View, ScrollView, Input, Image} from '@tarojs/components'
-import './index.scss'
-import Feed from '../../components/feed/feed'
-import searchPng from '../../asset/images/search.png'
+import { View, Input, Image } from '@tarojs/components'
+import { connect } from '@tarojs/redux'
+import { Component } from '@tarojs/taro'
 import lightingPng from '../../asset/images/lighting.png'
-import {create} from 'dva-core';
-import {connect} from '@tarojs/redux'
+import searchPng from '../../asset/images/search.png'
+import Feed from '../../components/feed/feed'
 import action from '../../utils/action'
+import './index.scss'
 
 @connect(({feeds, loading}) => ({
   ...feeds,
-  isLoad: loading.effects["feeds/load"],
-  isLoadMore: loading.effects["feeds/loadMore"],
+  isLoad: loading.effects['feeds/load'],
+  isLoadMore: loading.effects['feeds/loadMore'],
 }))
 export default class Index extends Component {
   config = {
     navigationBarTitleText: '首页',
     enablePullDownRefresh: true,
-    backgroundTextStyle: "dark",
-  };
-
-  constructor() {
-    super(...arguments);
+    backgroundTextStyle: 'dark',
+  }
+  componentDidMount = () => {
+    this.props.dispatch(action('feeds/load'))
+  }
+  onPullDownRefresh = () => {
+    this.props.dispatch(action('feeds/load'))
+  }
+  onReachBottom = () => {
+    this.props.dispatch(action('feeds/loadMore'))
+  }
+  updateList = () => {
+    this.props.dispatch(action('feeds/search', true))
   }
 
-  componentDidMount = () => {
-    this.props.dispatch(action("feeds/load"));
-  };
+  constructor () {
+    super(...arguments)
+  }
 
-  onPullDownRefresh = () => {
-    this.props.dispatch(action("feeds/load"));
-  };
-
-  onReachBottom = () => {
-    this.props.dispatch(action("feeds/loadMore"));
-  };
-
-  updateList = () => {
-    this.props.dispatch(action("feeds/search",true));
-  };
-
-  render() {
-    const {list = [], isLoad, isLoadMore} = this.props;
+  render () {
+    const {list = [], isLoad, isLoadMore} = this.props
     return (
       <View>
         <View className='search flex-wrp'>
@@ -49,7 +44,7 @@ export default class Index extends Component {
             <View className='flex-wrp'>
               <View className='flex1'><Image src={searchPng}></Image></View>
               <View className='flex6'><Input type='text' placeholder={'搜索话题, 问题或人'}
-                                             placeholderClass='search-placeholder'/></View>
+                placeholderClass='search-placeholder' /></View>
             </View>
           </View>
           <View className='search-right flex-item'>

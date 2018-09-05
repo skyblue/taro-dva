@@ -11,24 +11,24 @@
     padding: 10px 0 0 0;
 
     .question {
-      text,span {
+      text, span {
         font-size: 28px;
         font-weight: 600px;
         line-height: 40px;
       }
     }
-    .answer-body{
+    .answer-body {
       padding: 10px 0 0 0;
       font-size: 24px;
       line-height: 28px;
       color: #5b5b5b;
     }
-    .answer-actions{
+    .answer-actions {
       width: 690px;
-      padding: 10px 0  0;
+      padding: 10px 0 0;
       color: #a0acac;
 
-      view,div,span {
+      view, div, span {
         display: inline-block;
         vertical-align: text-bottom;
         padding: 0 10px 0 0;
@@ -37,12 +37,12 @@
     }
   }
 
-  .feed-source{
+  .feed-source {
     display: flex;
     width: 100%;
     height: 50px;
 
-    .feed-source-txt{
+    .feed-source-txt {
       display: inline-block;
       height: 45px;
       line-height: 45px;
@@ -52,22 +52,22 @@
       font-size: 26px;
     }
     .flex1 {
-      flex:1;
+      flex: 1;
     }
     .flex8 {
-      flex:8;
+      flex: 8;
     }
-    .item-more{
+    .item-more {
       display: inline-block;
       width: 40px;
       height: 45px;
       text-align: right;
     }
-    .avatar{
+    .avatar {
       position: relative;
       display: inline-block;
 
-      image,img{
+      image, img {
         display: inline-block;
         width: 45px;
         height: 45px;
